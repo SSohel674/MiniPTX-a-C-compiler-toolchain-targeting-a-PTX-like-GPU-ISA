@@ -1,0 +1,37 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build (g++)",
+      "type": "shell",
+      "command": "g++ -std=c++17 -g -O0 -Wall -Wextra src/*.cpp -o miniptx",
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": { "kind": "build", "isDefault": true },
+      "problemMatcher": ["$gcc"]
+    },
+    {
+      "label": "build tests (g++)",
+      "type": "shell",
+      "command": "g++ -std=c++17 -g -Isrc -DMINIPTX_EXAMPLES_DIR=\\\"examples\\\" src/lexer.cpp src/parser.cpp src/irgen.cpp src/opt.cpp src/codegen.cpp src/compiler.cpp src/object.cpp src/assembler.cpp src/linker.cpp src/simulator.cpp src/debugger.cpp tests/test_main.cpp -o miniptx_tests",
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": ["$gcc"]
+    },
+    {
+      "label": "run tests",
+      "type": "shell",
+      "command": "./miniptx_tests",
+      "options": { "cwd": "${workspaceFolder}" },
+      "dependsOn": "build tests (g++)",
+      "group": { "kind": "test", "isDefault": true },
+      "windows": { "command": ".\\miniptx_tests.exe" }
+    },
+    {
+      "label": "demo: build + run vecadd",
+      "type": "shell",
+      "command": "./miniptx build examples/vecadd.kc -o vecadd.mpx --keep && ./miniptx run vecadd.mpx --grid 3 --block 50 --arg buf:f32:130:iota --arg buf:f32:130:ones --arg buf:f32:130:zeros --arg i32:130 --stats",
+      "options": { "cwd": "${workspaceFolder}" },
+      "dependsOn": "build (g++)",
+      "problemMatcher": []
+    }
+  ]
+}

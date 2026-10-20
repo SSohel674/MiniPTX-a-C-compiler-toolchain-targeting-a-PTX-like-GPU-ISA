@@ -1,0 +1,7 @@
+// c[i] = a[i] + b[i]  -- the "hello world" of GPU programming
+kernel vecadd(float* a, float* b, float* c, int n) {
+    int i = blockIdx * blockDim + threadIdx;
+    if (i < n) {
+        c[i] = a[i] + b[i];
+    }
+}

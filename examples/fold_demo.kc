@@ -1,0 +1,13 @@
+// Shows the optimizer: compile with -O0 and -O1 and compare (miniptx compile examples/fold_demo.kc --stats --emit-ir)
+kernel demo(float* x, float* y, int n) {
+    int i = threadIdx + 0 * 5;        // algebraic simplification: 0*5 -> 0, i+0 -> i
+    float scale = 2.0 * 3.0;          // constant folding: 6.0
+    float unused = x[0] * 100.0;      // dead code: removed by DCE
+    if (i < n) {
+        float v = x[i];
+        y[i] = v * v + x[i] * x[i] + scale;   // x[i] loaded once (CSE), v*v == x[i]*x[i]
+    }
+    if (1 > 2) {                      // folded branch: never taken, whole block removed
+        y[0] = 12345.0;
+    }
+}

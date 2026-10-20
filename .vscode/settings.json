@@ -1,0 +1,5 @@
+{
+  "files.associations": { "*.kc": "c", "*.ptx": "asm-intel-x86-generic" },
+  "C_Cpp.default.cppStandard": "c++17",
+  "editor.formatOnSave": false
+}

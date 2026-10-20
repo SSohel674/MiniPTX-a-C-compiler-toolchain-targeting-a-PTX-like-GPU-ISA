@@ -1,0 +1,48 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug miniptx: compile vecadd.kc (debug the compiler itself)",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/miniptx",
+      "args": ["compile", "examples/vecadd.kc", "-o", "vecadd.ptx", "--emit-ir", "--stats"],
+      "cwd": "${workspaceFolder}",
+      "MIMode": "gdb",
+      "preLaunchTask": "build (g++)"
+    },
+    {
+      "name": "Debug miniptx: run saxpy on the simulator",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/miniptx",
+      "args": ["run", "saxpy.mpx", "--grid", "2", "--block", "40", "--arg", "f32:2",
+               "--arg", "buf:f32:70:iota", "--arg", "buf:f32:70:ones", "--arg", "i32:70", "--stats"],
+      "cwd": "${workspaceFolder}",
+      "MIMode": "gdb",
+      "preLaunchTask": "build (g++)"
+    },
+    {
+      "name": "Run miniptx source-level debugger (saxpy)",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/miniptx",
+      "args": ["run", "saxpy.mpx", "--grid", "1", "--block", "40", "--arg", "f32:2",
+               "--arg", "buf:f32:40:iota", "--arg", "buf:f32:40:ones", "--arg", "i32:36", "--debug"],
+      "cwd": "${workspaceFolder}",
+      "MIMode": "gdb",
+      "externalConsole": false,
+      "preLaunchTask": "build (g++)"
+    },
+    {
+      "name": "Debug unit tests",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/miniptx_tests",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "MIMode": "gdb",
+      "preLaunchTask": "build tests (g++)"
+    }
+  ]
+}

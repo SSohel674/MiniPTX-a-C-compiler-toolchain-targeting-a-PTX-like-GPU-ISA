@@ -1,0 +1,8 @@
+// y[i] = alpha * x[i] + y[i]
+// Try n that is not a multiple of 32 to see warp divergence at the bounds check.
+kernel saxpy(float alpha, float* x, float* y, int n) {
+    int i = blockIdx * blockDim + threadIdx;
+    if (i < n) {
+        y[i] = alpha * x[i] + y[i];
+    }
+}

@@ -1,0 +1,11 @@
+// Calls functions defined in mathlib.kc: resolved at link time through relocations.
+//   miniptx build examples/mathlib.kc examples/use_mathlib.kc -o apply.mpx
+extern device float cube(float x);
+extern device int fact(int n);
+
+kernel apply(float* in, float* out, int n) {
+    int i = blockIdx * blockDim + threadIdx;
+    if (i < n) {
+        out[i] = cube(in[i]) + (float)fact(i % 6);
+    }
+}

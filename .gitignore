@@ -1,0 +1,9 @@
+build/
+out/
+miniptx
+miniptx.exe
+miniptx_tests
+miniptx_tests.exe
+*.mpx
+*.mpo
+*.ptx

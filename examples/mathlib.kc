@@ -1,0 +1,11 @@
+// Library module (no kernel): linked together with use_mathlib.kc
+device float cube(float x) {
+    return x * x * x;
+}
+
+device int fact(int n) {
+    if (n <= 1) {
+        return 1;
+    }
+    return n * fact(n - 1);
+}

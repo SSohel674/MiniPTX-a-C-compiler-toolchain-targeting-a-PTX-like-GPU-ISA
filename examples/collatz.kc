@@ -1,0 +1,17 @@
+// Number of Collatz steps for i+1. Threads in a warp take very different trip counts -> heavy divergence.
+kernel collatz(int* steps, int n) {
+    int i = blockIdx * blockDim + threadIdx;
+    if (i < n) {
+        int x = i + 1;
+        int count = 0;
+        while (x != 1) {
+            if (x % 2 == 0) {
+                x = x / 2;
+            } else {
+                x = 3 * x + 1;
+            }
+            count++;
+        }
+        steps[i] = count;
+    }
+}

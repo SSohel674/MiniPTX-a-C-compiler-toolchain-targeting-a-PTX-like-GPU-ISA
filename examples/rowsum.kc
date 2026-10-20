@@ -1,0 +1,11 @@
+// Each thread sums one row of a (rows x cols) matrix: exercises loops and back-edge register allocation.
+kernel rowsum(float* in, float* out, int rows, int cols) {
+    int r = blockIdx * blockDim + threadIdx;
+    if (r < rows) {
+        float sum = 0.0;
+        for (int j = 0; j < cols; j++) {
+            sum += in[r * cols + j];
+        }
+        out[r] = sum;
+    }
+}
